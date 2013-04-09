@@ -47,4 +47,12 @@ class TasksController < ApplicationController
     @ptasks = Task.select {|t| t.status == 'Posted'}
     @elves = ELVES
   end
+
+  def select
+    @task = Task.find params[:id]
+    Task.send(:attr_accessible, :status)
+    @task.update_attributes!(:status => 'In Progress')
+    flash[:notice] = "Task \##{@task.id} was taken."
+    redirect_to select_index_tasks_path
+  end
 end

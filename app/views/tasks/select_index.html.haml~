@@ -1,3 +1,5 @@
+-# Make another model, Elves, which is just id/names of the elves
+-# = options_from_collection_for_select(@elves, :id, :name)
 = select_tag(:elf, options_for_select(@elves))
 
 %h2 Available Tasks
@@ -19,5 +21,5 @@
         %td= task.quantity
         %td= task.notes
         %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
-        %td= link_to "Select task", select_task_path(task), :method => :put
+        %td= link_to "Select task", select_task_path(task)
     
