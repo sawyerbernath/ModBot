@@ -43,7 +43,7 @@ class TasksController < ApplicationController
     redirect_to tasks_path
   end
 
-  def select
+  def select_index
     @ptasks = Task.select {|t| t.status == 'Posted'}
     @elves = ELVES
   end
