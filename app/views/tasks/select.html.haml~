@@ -1,0 +1,24 @@
+-# Make another model, Elves, which is just id/names of the elves
+= options_from_collection_for_select(Elves.all, :id, :name)
+
+%h2 Available Tasks
+
+%table#tasks
+  %thead
+    %tr
+      %th ID
+      %th Name
+      %th Quantity
+      %th Notes
+      %th Time Posted
+      %th Select?
+  %tbody
+    - @ptasks.each do |task|
+      %tr
+        %td= task.id
+        %td= task.name
+        %td= task.quantity
+        %td= task.notes
+        %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
+        %td= link_to "Select task", select_task_path(task)
+    

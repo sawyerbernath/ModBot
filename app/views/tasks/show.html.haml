@@ -1,0 +1,23 @@
+%h2 Task #{@task.id}: #{@task.name}
+
+%ul#details
+  %li
+    Quantity:
+    = @task.quantity
+  %li
+    Notes:
+    = @task.notes
+  %li
+    Status:
+    = @task.status
+  %li
+    Status Date:
+    = @task.updated_at.strftime("%l:%M%p %B %d, %Y")
+  %li
+    Elf Assigned:
+    = @task.elf
+
+= link_to 'Edit', edit_task_path(@task)
+%br
+= button_to 'Delete', task_path(@task), :method => :delete, :confirm => 'Are you sure?'
+= link_to 'Back to task list', tasks_path

@@ -1,0 +1,22 @@
+%h2 All Tasks
+
+%table#tasks
+  %thead
+    %tr
+      %th Name
+      %th Quantity
+      %th Notes
+      %th Status
+      %th Elf
+      %th More Info
+  %tbody
+    - @tasks.each do |task|
+      %tr
+        %td= task.name 
+        %td= task.quantity
+        %td= task.notes
+        %td= task.status
+        %td= task.elf
+        %td= link_to "More about #{task.name}", task_path(task)
+%br
+= link_to 'Add new task', new_task_path

@@ -1,0 +1,15 @@
+%h2 Edit Task
+
+= form_tag task_path(@task), :method => :put do
+
+  = label :task, :name, 'Name'
+  = select :task, :name, ['Inverse bottoms', 'Circuit boarding', 'Mate cubes']
+
+  = label :task, :quantity, 'Quantity'
+  = text_field :task, :quantity
+ 
+  = label :task, :notes, 'Notes'
+  = text_field :task, :notes
+  %br
+  %br
+  = submit_tag 'Submit'
