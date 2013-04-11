@@ -1,7 +1,0 @@
-class CreateElves < ActiveRecord::Migration
-  def up
-  end
-
-  def down
-  end
-end

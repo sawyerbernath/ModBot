@@ -20,7 +20,9 @@
         %td= task.notes
         %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
         %td= task.status
-        %td= task.elf
+        %td= @elves[task.elf.to_i]
         %td= link_to "More about #{task.name}", task_path(task)
 %br
 = link_to 'Add new task', new_task_path
+%br
+= link_to 'Select task (Elf)', select_index_tasks_path

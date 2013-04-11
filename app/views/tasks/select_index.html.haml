@@ -1,23 +1,25 @@
-= select_tag(:elf, options_for_select(@elves))
+= form_tag select_tasks_path, :method => :put do
+  = select_tag(:elf, options_for_select(@elves))
+  %h2 Available Tasks
 
-%h2 Available Tasks
-
-%table#tasks
-  %thead
-    %tr
-      %th ID
-      %th Name
-      %th Quantity
-      %th Notes
-      %th Time Posted
-      %th Select?
-  %tbody
-    - @ptasks.each do |task|
+  %table#tasks
+    %thead
       %tr
-        %td= task.id
-        %td= task.name
-        %td= task.quantity
-        %td= task.notes
-        %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
-        %td= link_to "Select task", select_task_path(task), :method => :put
-    
+        %th ID
+        %th Name
+        %th Quantity
+        %th Notes
+        %th Time Posted
+        %th Select?
+    %tbody
+      - @ptasks.each do |task|
+        %tr
+          %td= task.id
+          %td= task.name
+          %td= task.quantity
+          %td= task.notes
+          %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
+          %td= radio_button_tag(:id, task.id)
+  = submit_tag 'Select task'
+%br
+= link_to 'Back to full task list', tasks_path

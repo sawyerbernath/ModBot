@@ -14,11 +14,9 @@ ModBot::Application.routes.draw do
   #   resources :products
 
   resources :tasks do
-    member do
-      put 'select'
-    end
     collection do
       get 'select_index'
+      put 'select'
     end
   end
   root :to => redirect('/tasks')

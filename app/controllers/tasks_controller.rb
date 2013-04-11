@@ -1,19 +1,19 @@
 class TasksController < ApplicationController
-  ELVES = [['Sawyer Bernath', 1], ['Kristin Yen', 2], ['Logan Priess', 3],
-           ['Keegan Ridgley', 4], ['Karl Stokely', 5], ['Chris Borke', 6]]
+  ELVES = { 1 => 'Sawyer Bernath', 2 => 'Kristin Yen', 3 => 'Logan Priess',
+    4 => 'Keegan Ridgley', 5 => 'Karl Stokely', 6 => 'Chris Borke' }
 
   def index
     @tasks = Task.all
+    @elves = ELVES
   end
 
   def show
-    id = params[:id] # retrieve task ID from URI route
-    @task = Task.find(id) # look up task by unique ID
+    @task = Task.find(params[:id]) # look up task by passed id
     # will render app/views/tasks/show.html.haml by default
   end
 
   def new
-    # will render app/views/tasks/new.html.haml by defaul
+    # will render app/views/tasks/new.html.haml by default
   end
 
   def create
@@ -45,13 +45,13 @@ class TasksController < ApplicationController
 
   def select_index
     @ptasks = Task.select {|t| t.status == 'Posted'}
-    @elves = ELVES
+    @elves = ELVES.invert
   end
 
   def select
     @task = Task.find params[:id]
-    Task.send(:attr_accessible, :status)
-    @task.update_attributes!(:status => 'In Progress')
+    Task.send(:attr_accessible, :status, :elf)
+    @task.update_attributes!(:status => 'In Progress', :elf => params[:elf])
     flash[:notice] = "Task \##{@task.id} was taken."
     redirect_to select_index_tasks_path
   end

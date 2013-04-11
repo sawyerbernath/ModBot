@@ -8,9 +8,10 @@
 
 some_tasks = [
               {:name => 'Inverse bottoms', :quantity => 32, :notes => '',
-                :status => 'posted', :elf => 'Sawyer Bernath'},
-              {:name => 'Flash cubes', :status => 'posted',
-                :elf => 'Kristin Yen'}
+                :status => 'Posted'},
+              {:name => 'Flash cubes', :status => 'Posted'},
+              {:name => 'Circuit boarding', :status => 'In Progress',
+                :elf => 2}
 ]
 
 Task.send(:attr_accessible, :name, :quantity, :notes, :status, :elf)
