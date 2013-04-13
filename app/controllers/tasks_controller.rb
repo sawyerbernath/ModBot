@@ -55,4 +55,17 @@ class TasksController < ApplicationController
     flash[:notice] = "Task \##{@task.id} was taken."
     redirect_to select_index_tasks_path
   end
+
+  def complete_index
+    @iptasks = Task.select {|t| t.status == 'In Progress'}
+    @elves = ELVES
+  end
+
+  def complete
+    @task = Task.find params[:id]
+    Task.send(:attr_accessible, :status)
+    @task.update_attributes!(:status => 'Completed')
+    flash[:notice] = "#{@task.elf} completed task \##{@task.id}."
+    redirect_to tasks_path
+  end
 end

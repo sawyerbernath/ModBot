@@ -17,6 +17,8 @@ ModBot::Application.routes.draw do
     collection do
       get 'select_index'
       put 'select'
+      get 'complete_index'
+      put 'complete'
     end
   end
   root :to => redirect('/tasks')

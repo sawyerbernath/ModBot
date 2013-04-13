@@ -1,0 +1,26 @@
+= form_tag complete_tasks_path, :method => :put do
+  %h2 Tasks In Progress
+
+  %table#tasks
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Quantity
+        %th Notes
+        %th Time Started
+        %th Elf
+        %th Complete?
+    %tbody
+      - @iptasks.each do |task|
+        %tr
+          %td= task.id
+          %td= task.name
+          %td= task.quantity
+          %td= task.notes
+          %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
+          %td= @elves[task.elf.to_i]
+          %td= radio_button_tag(:id, task.id)
+  = submit_tag 'Complete task', :confirm => "Are you Karl?"
+%br
+= link_to 'Back to full task list', tasks_path
