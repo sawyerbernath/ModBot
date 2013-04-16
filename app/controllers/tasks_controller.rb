@@ -58,6 +58,12 @@ class TasksController < ApplicationController
 
   def complete_index
     @iptasks = Task.select {|t| t.status == 'In Progress'}
+    #Ugh, this is so ugly, sorry...
+    #I don't think I need this, but I'll leave it here anyway.
+    #@taskelves = Array.new()
+    #@iptasks.each do |task|
+      #@taskelves[task.id] = task.elf
+    #end
     @elves = ELVES
   end
 
