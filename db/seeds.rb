@@ -11,17 +11,12 @@ some_tasks = [
                 :status => 'Posted'},
               {:name => 'Flash cubes', :status => 'Posted'},
               {:name => 'Circuit boarding', :status => 'In Progress',
-                :elf => 2}
+                :elf_id => 2}
 ]
 
-Task.send(:attr_accessible, :name, :quantity, :notes, :status, :elf)
-some_tasks.each do |task|
-  Task.create!(task)
-end
+Task.send(:attr_accessible, :name, :quantity, :notes, :status, :elf_id)
+some_tasks.each {|t| Task.create!(t)}
 
-=begin
-The elves database and Elf model are no longer a thing.
-Elf names are stored in a constant in tasks_controller.rb
 some_elves = [
               {:name => 'Sawyer Bernath'},
               {:name => 'Kristin Yen'},
@@ -31,6 +26,4 @@ some_elves = [
               {:name => 'Ying Her'},
               {:name => 'Logan Priess'}
 ]
-Elf.send(:attr_accessible, :name)
 some_elves.each {|e| Elf.create!(e)}
-=end
