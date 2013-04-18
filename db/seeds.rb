@@ -8,8 +8,8 @@
 
 some_tasks = [
               {:name => 'Inverse bottoms', :quantity => 32, :notes => '',
-                :status => 'Posted'},
-              {:name => 'Flash cubes', :status => 'Posted'},
+                :status => 'Posted', :elf_id => 1},
+              {:name => 'Flash cubes', :status => 'Posted', :elf_id => 1},
               {:name => 'Circuit boarding', :status => 'In Progress',
                 :elf_id => 2}
 ]
@@ -18,12 +18,16 @@ Task.send(:attr_accessible, :name, :quantity, :notes, :status, :elf_id)
 some_tasks.each {|t| Task.create!(t)}
 
 some_elves = [
+              {:name => ''},                 #assigned when posted
               {:name => 'Sawyer Bernath'},
               {:name => 'Kristin Yen'},
               {:name => 'Chris Borke'},
               {:name => 'Keegan Ridgley'},
               {:name => 'Karl Stokely'},
               {:name => 'Ying Her'},
-              {:name => 'Logan Priess'}
+              {:name => 'Logan Priess'},
+              {:name => 'Joe Ferry'},
+              {:name => 'Jenny Chambers'},
+              {:name => 'Michael...'}
 ]
 some_elves.each {|e| Elf.create!(e)}

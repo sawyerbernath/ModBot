@@ -1,10 +1,6 @@
 class TasksController < ApplicationController
-  ELVES = { 1 => 'Sawyer Bernath', 2 => 'Kristin Yen', 3 => 'Logan Priess',
-    4 => 'Keegan Ridgley', 5 => 'Karl Stokely', 6 => 'Chris Borke' }
-
   def index
     @tasks = Task.all
-    @elves = ELVES
   end
 
   def show
@@ -17,8 +13,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    Task.send(:attr_accessible, :name, :quantity, :notes, :status)
+    Task.send(:attr_accessible, :name, :quantity, :notes, :status, :elf_id)
     params[:task][:status] = 'Posted'
+    params[:task][:elf_id] = (Elf.where 'name = ""').first.id
     @task = Task.create!(params[:task])
     flash[:notice] = "Task #{@task.id} was successfully created."
     redirect_to tasks_path
@@ -45,7 +42,7 @@ class TasksController < ApplicationController
 
   def select_index
     @ptasks = Task.select {|t| t.status == 'Posted'}
-    @elves = ELVES.invert
+    @elves = Elf.all.map {|e| [e.name, e.id]}
   end
 
   def select
@@ -58,20 +55,14 @@ class TasksController < ApplicationController
 
   def complete_index
     @iptasks = Task.select {|t| t.status == 'In Progress'}
-    #Ugh, this is so ugly, sorry...
-    #I don't think I need this, but I'll leave it here anyway.
-    #@taskelves = Array.new()
-    #@iptasks.each do |task|
-      #@taskelves[task.id] = task.elf
-    #end
-    @elves = ELVES
+    @elves = Elf.all
   end
 
   def complete
     @task = Task.find params[:id]
     Task.send(:attr_accessible, :status)
     @task.update_attributes!(:status => 'Completed')
-    flash[:notice] = "#{@task.elf} completed task \##{@task.id}."
+    flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
     redirect_to tasks_path
   end
 end
