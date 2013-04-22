@@ -47,15 +47,15 @@ class TasksController < ApplicationController
 
   def select
     @task = Task.find params[:id]
-    Task.send(:attr_accessible, :status, :elf)
-    @task.update_attributes!(:status => 'In Progress', :elf => params[:elf])
+    @elf = Elf.find params[:elf]
+    @task.status = 'In Progress'
+    @elf.tasks << @task
     flash[:notice] = "Task \##{@task.id} was taken."
     redirect_to select_index_tasks_path
   end
 
   def complete_index
     @iptasks = Task.select {|t| t.status == 'In Progress'}
-    @elves = Elf.all
   end
 
   def complete
@@ -64,5 +64,15 @@ class TasksController < ApplicationController
     @task.update_attributes!(:status => 'Completed')
     flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
     redirect_to tasks_path
+  end
+
+  def home
+    @task = Task.last
+    @elves = Elf.all
+    @elves.each do |e|
+      if e.task_id.nil?
+        e.task_id = 0
+      end
+    end
   end
 end
