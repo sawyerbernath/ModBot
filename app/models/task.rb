@@ -9,7 +9,6 @@
 #  status     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  elf_id     :integer
 #
 
 class Task < ActiveRecord::Base
