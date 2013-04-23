@@ -13,10 +13,10 @@ class TasksController < ApplicationController
   end
 
   def create
-    Task.send(:attr_accessible, :name, :quantity, :notes, :status, :elf_id)
     params[:task][:status] = 'Posted'
-    params[:task][:elf_id] = (Elf.where 'name = ""').first.id
     @task = Task.create!(params[:task])
+    @task.elf = (Elf.where 'name = ""').first
+    @task.save
     flash[:notice] = "Task #{@task.id} was successfully created."
     redirect_to tasks_path
   end
@@ -42,14 +42,15 @@ class TasksController < ApplicationController
 
   def select_index
     @ptasks = Task.select {|t| t.status == 'Posted'}
-    @elves = Elf.all.map {|e| [e.name, e.id]}
+    @elves = Elf.where('name != ""').map {|e| [e.name, e.id]}
   end
 
   def select
     @task = Task.find params[:id]
     @elf = Elf.find params[:elf]
     @task.status = 'In Progress'
-    @elf.tasks << @task
+    @task.elf = @elf
+    @task.save
     flash[:notice] = "Task \##{@task.id} was taken."
     redirect_to select_index_tasks_path
   end
@@ -60,7 +61,6 @@ class TasksController < ApplicationController
 
   def complete
     @task = Task.find params[:id]
-    Task.send(:attr_accessible, :status)
     @task.update_attributes!(:status => 'Completed')
     flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
     redirect_to tasks_path

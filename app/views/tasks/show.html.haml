@@ -15,7 +15,7 @@
     = @task.updated_at.strftime("%l:%M%p %B %d, %Y")
   %li
     Elf Assigned:
-    = @task.elf
+    = @task.elf.name
 
 = link_to 'Edit', edit_task_path(@task)
 %br
