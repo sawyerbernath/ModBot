@@ -9,6 +9,6 @@
 #
 
 class Elf < ActiveRecord::Base
-  attr_accessible :name, :task_id
+  attr_accessible :name
   has_many :tasks
 end

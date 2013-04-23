@@ -9,8 +9,10 @@
 #  status     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  elf_id     :integer
 #
 
 class Task < ActiveRecord::Base
+  attr_protected :id, :created_at, :updated_at
   belongs_to :elf
 end
