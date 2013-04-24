@@ -1,0 +1,9 @@
+%h2 Create New Elf
+
+= form_tag elves_path, :method => :post do
+
+  = label :elf, :name, 'Name'
+  = text_field :elf, :name
+  %br
+  %br
+  = submit_tag 'Submit'

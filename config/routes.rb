@@ -22,6 +22,8 @@ ModBot::Application.routes.draw do
       put 'complete'
     end
   end
+  resources :elves do
+  end
   root :to => redirect('/tasks')
 
   # Sample resource route with options:

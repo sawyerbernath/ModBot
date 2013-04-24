@@ -1,0 +1,9 @@
+%h2 Edit Elf
+
+= form_tag elf_path(@elf), :method => :put do
+
+  = label :elf, :name, 'Name'
+  = text_field :elf, :name
+  %br
+  %br
+  = submit_tag 'Submit'

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.where 'name != ""'
   end
 
   def show
@@ -27,7 +27,6 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find params[:id]
-    Task.send(:attr_accessible, :name, :quantity, :notes, :status)
     @task.update_attributes!(params[:task])
     flash[:notice] = "Task \##{@task.id} was successfully updated."
     redirect_to task_path(@task)
@@ -69,10 +68,5 @@ class TasksController < ApplicationController
   def home
     @task = Task.last
     @elves = Elf.all
-    @elves.each do |e|
-      if e.task_id.nil?
-        e.task_id = 0
-      end
-    end
   end
 end

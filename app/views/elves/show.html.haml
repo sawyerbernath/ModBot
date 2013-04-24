@@ -1,0 +1,20 @@
+%h2 #{@elf.name}
+
+%ul#details
+  %li
+    Tasks:
+    %br
+    - @elf.tasks.each do |t|
+      = "#{t.id}: #{t.name} on #{t.updated_at.strftime("%l:%M%p %B %d, %Y")}"
+      %br
+  %li
+    Created:
+    = @elf.created_at.strftime("%l:%M%p %B %d, %Y")
+  %li
+    Updated:
+    = @elf.updated_at.strftime("%l:%M%p %B %d, %Y")
+
+= link_to 'Edit', edit_elf_path(@elf)
+%br
+= button_to 'Delete', elf_path(@elf), :method => :delete, :confirm => 'Are you sure?'
+= link_to 'Back to elves list', elves_path
