@@ -1,0 +1,1 @@
+Building an app to teach myself Ruby on Rails.
