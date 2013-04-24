@@ -67,6 +67,6 @@ class TasksController < ApplicationController
 
   def home
     @task = Task.last
-    @elves = Elf.all
+    @elves = Elf.where 'name != ""'
   end
 end
