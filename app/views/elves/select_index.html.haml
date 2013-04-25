@@ -1,0 +1,25 @@
+= form_tag select_tasks_path, :method => :put do
+  = hidden_field_tag(:elf, @elf.id)
+  %h2 Available Tasks for #{@elf.name}
+
+  %table#tasks
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Quantity
+        %th Notes
+        %th Time Posted
+        %th Select?
+    %tbody
+      - @ptasks.each do |task|
+        %tr
+          %td= task.id
+          %td= task.name
+          %td= task.quantity
+          %td= task.notes
+          %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
+          %td= radio_button_tag(:id, task.id)
+  = submit_tag 'Select task'
+%br
+= link_to 'Back to full task list', tasks_path

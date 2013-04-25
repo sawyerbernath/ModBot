@@ -51,7 +51,7 @@ class TasksController < ApplicationController
     @task.elf = @elf
     @task.save
     flash[:notice] = "Task \##{@task.id} was taken."
-    redirect_to select_index_tasks_path
+    redirect_to home_path
   end
 
   def complete_index
@@ -62,7 +62,7 @@ class TasksController < ApplicationController
     @task = Task.find params[:task_id]
     @task.update_attributes!(:status => 'Completed')
     flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
-    redirect_to tasks_path
+    redirect_to home_path
   end
 
   def home
@@ -70,7 +70,7 @@ class TasksController < ApplicationController
     (Elf.where 'name != ""').each do |e|
       if e.tasks.last.name == '' || e.tasks.last.status == 'Completed' 
         text = "#{e.name}. Click to select task."
-        path = select_index_tasks_path
+        path = select_index_elf_path(e)
         method = :get
       else
         text = "#{e.name}. Current task: #{e.tasks.last.id}, #{e.tasks.last.name}.  CLICK TO COMPLETE TASK." 

@@ -38,4 +38,9 @@ class ElvesController < ApplicationController
     flash[:notice] = "#{@elf.name} is dead. None will mourne his/her passing."
     redirect_to elves_path
   end
+
+  def select_index
+    @elf = Elf.find params[:id]
+    @ptasks = Task.select {|t| t.status =='Posted'}
+  end
 end

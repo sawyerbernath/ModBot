@@ -23,6 +23,9 @@ ModBot::Application.routes.draw do
     end
   end
   resources :elves do
+    member do
+      get 'select_index'
+    end
   end
   root :to => redirect('/tasks')
 
