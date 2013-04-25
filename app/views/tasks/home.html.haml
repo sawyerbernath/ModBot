@@ -1,4 +1,4 @@
 %h2 Assembly
 
-- @elves.each do |e|
-  = button_to e.name, task_path(e.tasks.last), :method => :get
+- @buttons.each do |key, value|
+  = button_to value[:text], value[:path], :method => value[:method]

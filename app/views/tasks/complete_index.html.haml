@@ -20,7 +20,7 @@
           %td= task.notes
           %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
           %td= task.elf.name
-          %td= radio_button_tag(:id, task.id)
+          %td= radio_button_tag(:task_id, task.id)
   = submit_tag 'Complete task', :confirm => "Are you ELF ERROR?"
 %br
 = link_to 'Back to full task list', tasks_path

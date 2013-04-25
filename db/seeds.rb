@@ -15,7 +15,7 @@ some_tasks = [
 ]
 
 Task.send(:attr_accessible, :name, :quantity, :notes, :status, :elf_id)
-some_tasks.each {|t| Task.create!(t)}
+#some_tasks.each {|t| Task.create!(t)}
 
 some_elves = [
               {:name => ''},                 #assigned when posted
@@ -30,4 +30,7 @@ some_elves = [
               {:name => 'Jenny Chambers'},
               {:name => 'Michael...'}
 ]
-some_elves.each {|e| Elf.create!(e)}
+some_elves.each do |e| 
+  elf = Elf.create!(e)
+  elf.tasks.create :name => ''
+end

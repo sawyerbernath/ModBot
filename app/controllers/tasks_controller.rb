@@ -59,14 +59,26 @@ class TasksController < ApplicationController
   end
 
   def complete
-    @task = Task.find params[:id]
+    @task = Task.find params[:task_id]
     @task.update_attributes!(:status => 'Completed')
     flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
     redirect_to tasks_path
   end
 
   def home
-    @task = Task.last
-    @elves = Elf.where 'name != ""'
+    @buttons = Hash.new
+    (Elf.where 'name != ""').each do |e|
+      if e.tasks.last.name == '' || e.tasks.last.status == 'Completed' 
+        text = "#{e.name}. Click to select task."
+        path = select_index_tasks_path
+        method = :get
+      else
+        text = "#{e.name}. Current task: #{e.tasks.last.id}, #{e.tasks.last.name}.  CLICK TO COMPLETE TASK." 
+        params[:task_id] = e.tasks.last.id
+        path = complete_tasks_path(params.slice(:task_id))
+        method = :put
+      end
+      @buttons[e.id] = {:text => text, :path => path, :method => method}
+    end
   end
 end
