@@ -72,13 +72,15 @@ class TasksController < ApplicationController
         text = "#{e.name}. Click to select task."
         path = select_index_elf_path(e)
         method = :get
+        confirmation = false
       else
         text = "#{e.name}. Current task: #{e.tasks.last.id}, #{e.tasks.last.name}.  CLICK TO COMPLETE TASK." 
         params[:task_id] = e.tasks.last.id
         path = complete_tasks_path(params.slice(:task_id))
         method = :put
+        confirmation = "About to complete Task \##{e.tasks.last.id}: #{e.tasks.last.name}."
       end
-      @buttons[e.id] = {:text => text, :path => path, :method => method}
+      @buttons[e.id] = {:text => text, :path => path, :method => method, :confirmation => confirmation}
     end
   end
 end

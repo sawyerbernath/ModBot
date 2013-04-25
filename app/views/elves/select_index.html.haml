@@ -20,6 +20,6 @@
           %td= task.notes
           %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
           %td= radio_button_tag(:id, task.id)
-  = submit_tag 'Select task'
+  = submit_tag 'Select task', :confirm => 'Are you sure you want to select this task?'
 %br
 = link_to 'Back to full task list', tasks_path
