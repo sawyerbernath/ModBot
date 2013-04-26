@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
   def index
     #NEEDS TO BE CHANGED TO WORK WITH TASK_TYPE INSTEAD OF NAME!
+    tasktypes = Task.map {|t| [t, t.task_type]}
     @tasks = Task.where 'name != ""'
   end
 
   def show
     @task = Task.find(params[:id]) # look up task by passed id
-    # will render app/views/tasks/show.html.haml by default
   end
 
   def new
