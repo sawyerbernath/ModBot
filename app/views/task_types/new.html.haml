@@ -1,0 +1,12 @@
+%h2 Create New Task Type
+
+= form_tag task_types_path, :method => :post do
+
+  = label :task_type, :name, 'Name'
+  = text_field :task_type, :name
+
+  = label :task_type, :batch_size, 'Batch size'
+  = text_field :task_type, :batch_size
+  %br
+  %br
+  = submit_tag 'Submit'

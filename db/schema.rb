@@ -11,10 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423054143) do
+ActiveRecord::Schema.define(:version => 20130426002558) do
 
   create_table "elves", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "task_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "batch_size"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -24,9 +31,10 @@ ActiveRecord::Schema.define(:version => 20130423054143) do
     t.integer  "quantity"
     t.text     "notes"
     t.string   "status"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "elf_id"
+    t.integer  "task_type_id"
   end
 
 end

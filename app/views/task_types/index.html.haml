@@ -1,0 +1,22 @@
+%h2 All Tasks Types
+
+%table#tasktypes
+  %thead
+    %tr
+      %th ID
+      %th Name
+      %th Batch Size
+      %th More Info
+  %tbody
+    - @task_types.each do |t|
+      %tr
+        %td= t.id
+        %td= t.name 
+        %td= t.batch_size
+        %td= link_to "More about #{t.name}", task_type_path(t)
+%br
+= link_to 'Add new task type', new_task_type_path
+%br
+= link_to 'Task index', tasks_path
+%br
+= link_to 'Elf index', elves_path

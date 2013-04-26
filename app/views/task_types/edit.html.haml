@@ -1,0 +1,12 @@
+%h2 Edit Task Type
+
+= form_tag task_type_path(@task_type), :method => :put do
+
+  = label :task_type, :name, 'Name'
+  = text_field :task_type, :name
+
+  = label :task_type, :batch_size, 'Batch Size'
+  = text_field :task_type, :batch_size
+  %br
+  %br
+  = submit_tag 'Submit'

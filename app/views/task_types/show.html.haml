@@ -1,0 +1,11 @@
+%h2 #{@task_type.name}
+
+%ul#details
+  %li
+    Batch Size:
+    = @task_type.batch_size
+
+= link_to 'Edit', edit_task_type_path(@task_type)
+%br
+= button_to 'Delete', task_type_path(@task_type), :method => :delete, :confirm => 'Are you sure?'
+= link_to 'Back to task type index', task_types_path
