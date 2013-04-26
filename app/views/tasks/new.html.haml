@@ -2,8 +2,8 @@
 
 = form_tag tasks_path, :method => :post do
 
-  = label :task, :name, 'Name'
-  = select :task, :name, ['Inverse bottoms', 'Circuit boarding', 'Mate cubes']
+  = label :task, :task_type, 'Task Type'
+  = select :task, :task_type, @tasktypes
 
   = label :task, :quantity, 'Quantity'
   = text_field :task, :quantity

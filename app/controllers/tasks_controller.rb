@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   def index
+    #NEEDS TO BE CHANGED TO WORK WITH TASK_TYPE INSTEAD OF NAME!
     @tasks = Task.where 'name != ""'
   end
 
@@ -9,13 +10,14 @@ class TasksController < ApplicationController
   end
 
   def new
-    # will render app/views/tasks/new.html.haml by default
+    @tasktypes = TaskType.all.map {|t| [t.name, t.id]}
   end
 
   def create
     params[:task][:status] = 'Posted'
-    @task = Task.create!(params[:task])
+    @task = Task.create!(params[:task].slice(:status, :quantity, :notes))
     @task.elf = (Elf.where 'name = ""').first
+    @task.task_type = TaskType.find params[:task][:task_type]
     @task.save
     flash[:notice] = "Task #{@task.id} was successfully created."
     redirect_to tasks_path
@@ -23,19 +25,22 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find params[:id]
+    @tasktypes = TaskType.all.map {|t| [t.name, t.id]}
   end
 
   def update
     @task = Task.find params[:id]
-    @task.update_attributes!(params[:task])
+    @task.update_attributes!(params[:task].slice(:quantity, :notes))
+    @task.task_type = TaskType.find params[:task][:task_type]
+    @task.save
     flash[:notice] = "Task \##{@task.id} was successfully updated."
     redirect_to task_path(@task)
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    @task = Task.find params[:id]
     @task.destroy
-    flash[:notice] = "Task \##{@task.id}:#{@task.name} deleted."
+    flash[:notice] = "Task \##{@task.id}:#{@task.task_type.name} deleted."
     redirect_to tasks_path
   end
 
