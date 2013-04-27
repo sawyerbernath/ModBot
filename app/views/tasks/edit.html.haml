@@ -2,8 +2,8 @@
 
 = form_tag task_path(@task), :method => :put do
 
-  = label :task, :task_type, 'Task Type'
-  = select :task, :task_type, @tasktypes
+  = label :task, :task_type_id, 'Task Type'
+  = select :task, :task_type_id, @tasktypes
 
   = label :task, :quantity, 'Quantity'
   = text_field :task, :quantity

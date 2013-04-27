@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426002558) do
+ActiveRecord::Schema.define(:version => 20130427154424) do
 
   create_table "elves", :force => true do |t|
     t.string   "name"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(:version => 20130426002558) do
   end
 
   create_table "tasks", :force => true do |t|
-    t.string   "name"
     t.integer  "quantity"
     t.text     "notes"
     t.string   "status"

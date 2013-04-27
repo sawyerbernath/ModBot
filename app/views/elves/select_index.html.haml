@@ -15,7 +15,7 @@
       - @ptasks.each do |task|
         %tr
           %td= task.id
-          %td= task.name
+          %td= task.task_type.name
           %td= task.quantity
           %td= task.notes
           %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")

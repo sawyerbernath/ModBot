@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @tasktypes = TaskType.all.map {|t| [t.name, t.id]}
+    @tasktypes = TaskType.where('name != ""').map {|t| [t.name, t.id]}
   end
 
   def create
@@ -29,13 +29,13 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find params[:id]
-    @tasktypes = TaskType.all.map {|t| [t.name, t.id]}
+    @tasktypes = TaskType.where('name != ""').map {|t| [t.name, t.id]}
   end
 
   def update
     @task = Task.find params[:id]
     @task.update_attributes!(params[:task].slice(:quantity, :notes))
-    @task.task_type = TaskType.find params[:task][:task_type]
+    @task.task_type = TaskType.find params[:task][:task_type_id]
     @task.save
     flash[:notice] = "Task \##{@task.id} was successfully updated."
     redirect_to task_path(@task)
@@ -77,17 +77,17 @@ class TasksController < ApplicationController
   def home
     @buttons = Hash.new
     (Elf.where 'name != ""').each do |e|
-      if e.tasks.last.name == '' || e.tasks.last.status == 'Completed' 
+      if e.tasks.last.task_type.name == '' || e.tasks.last.status == 'Completed' 
         text = "#{e.name}. Click to select task."
         path = select_index_elf_path(e)
         method = :get
         confirmation = false
       else
-        text = "#{e.name}. Current task: #{e.tasks.last.id}, #{e.tasks.last.name}.  CLICK TO COMPLETE TASK." 
+        text = "#{e.name}. Current task: #{e.tasks.last.id}, #{e.tasks.last.task_type.name}.  CLICK TO COMPLETE TASK." 
         params[:task_id] = e.tasks.last.id
         path = complete_tasks_path(params.slice(:task_id))
         method = :put
-        confirmation = "About to complete Task \##{e.tasks.last.id}: #{e.tasks.last.name}."
+        confirmation = "About to complete Task \##{e.tasks.last.id}: #{e.tasks.last.task_type.name}."
       end
       @buttons[e.id] = {:text => text, :path => path, :method => method, :confirmation => confirmation}
     end
