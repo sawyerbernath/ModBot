@@ -19,7 +19,7 @@ class TasksController < ApplicationController
 
   def create
     params[:task][:status] = 'Posted'
-    @task = Task.create!(params[:task].slice(:status, :quantity, :notes))
+    @task = Task.create!(params[:task].slice(:status, :quantity, :notes, :passed, :failed))
     @task.elf = (Elf.where 'name = ""').first
     @task.task_type = TaskType.find params[:task][:task_type]
     @task.save
@@ -34,7 +34,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find params[:id]
-    @task.update_attributes!(params[:task].slice(:quantity, :notes))
+    @task.update_attributes!(params[:task].slice(:quantity, :notes, :passed, :failed))
     @task.task_type = TaskType.find params[:task][:task_type_id]
     @task.save
     flash[:notice] = "Task \##{@task.id} was successfully updated."

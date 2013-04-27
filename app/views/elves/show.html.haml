@@ -5,7 +5,7 @@
     Tasks:
     %br
     - @elf.tasks.each do |t|
-      = "#{t.id}: #{t.name} on #{t.updated_at.strftime("%l:%M%p %B %d, %Y")}"
+      = "#{t.id}: #{t.task_type.name} on #{t.updated_at.strftime("%l:%M%p %B %d, %Y")}"
       %br
   %li
     Created:

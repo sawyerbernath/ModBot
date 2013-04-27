@@ -16,6 +16,12 @@
   %li
     Elf Assigned:
     = @task.elf.name
+  %li
+    Passed:
+    = @task.passed
+  %li
+    Failed:
+    = @task.failed
 
 = link_to 'Edit', edit_task_path(@task)
 %br

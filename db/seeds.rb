@@ -23,13 +23,14 @@ some_elves = [
               {:name => 'Logan Priess'},
               {:name => 'Joe Ferry'},
               {:name => 'Jenny Chambers'},
-              {:name => 'Michael...'}
+              {:name => 'Michael Kramer'}
              ]
 some_elves.each do |e| 
   elf = Elf.create!(e)
-  elf.tasks.create :name => ''
-  Task.all.each do |t| 
-    t.task_type = (TaskType.where 'name == ""').first
-    t.save
-  end
+  elf.tasks.create
+end
+
+Task.all.each do |t| 
+  t.task_type = (TaskType.where 'name == ""').first
+  t.save
 end

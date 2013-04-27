@@ -10,6 +10,8 @@
       %th Time Updated
       %th Status
       %th Elf
+      %th Passed
+      %th Failed
       %th More Info
   %tbody
     - @tasks.each do |task|
@@ -21,6 +23,8 @@
         %td= task.updated_at.strftime("%l:%M%p %B %d, %Y")
         %td= task.status
         %td= task.elf.name
+        %td= task.passed
+        %td= task.failed
         %td= link_to "More about #{task.task_type.name}", task_path(task)
 %br
 = link_to 'Add new task', new_task_path

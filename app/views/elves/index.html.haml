@@ -16,7 +16,7 @@
         %td= e.name 
         %td= e.created_at.strftime("%l:%M%p %B %d, %Y")
         %td= e.updated_at.strftime("%l:%M%p %B %d, %Y")
-        %td= "#{e.tasks.last.id}: #{e.tasks.last.name}"
+        %td= "#{e.tasks.last.id}: #{e.tasks.last.task_type.name}"
         %td= link_to "More about #{e.name}", elf_path(e)
 %br
 = link_to 'Add new elf', new_elf_path
