@@ -1,24 +1,19 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+some_task_types = [
+                   {:name => ''},
+                   {:name => 'Assemble Drive Halves', :batch_size => 32},
+                   {:name => 'Mate Cubes', :batch_size => 64},
+                   {:name => 'Test Passives', :batch_size => 32},
+                   {:name => 'Circuit Boarding', :batch_size => 64}
+                  ]
+some_task_types.each {|t| TaskType.create! t}
 
 some_tasks = [
-              {:name => 'Inverse bottoms', :quantity => 32, :notes => '',
-                :status => 'Posted', :elf_id => 1},
-              {:name => 'Flash cubes', :status => 'Posted', :elf_id => 1},
-              {:name => 'Circuit boarding', :status => 'In Progress',
-                :elf_id => 2}
-]
-
-Task.send(:attr_accessible, :name, :quantity, :notes, :status, :elf_id)
+              
+             ]
 #some_tasks.each {|t| Task.create!(t)}
 
 some_elves = [
-              {:name => ''},                 #assigned when posted
+              {:name => ''},                 #assigned when task is posted
               {:name => 'Sawyer Bernath'},
               {:name => 'Kristin Yen'},
               {:name => 'Chris Borke'},
@@ -29,8 +24,12 @@ some_elves = [
               {:name => 'Joe Ferry'},
               {:name => 'Jenny Chambers'},
               {:name => 'Michael...'}
-]
+             ]
 some_elves.each do |e| 
   elf = Elf.create!(e)
   elf.tasks.create :name => ''
+  Task.all.each do |t| 
+    t.task_type = (TaskType.where 'name == ""').first
+    t.save
+  end
 end

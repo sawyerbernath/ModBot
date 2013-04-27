@@ -1,8 +1,12 @@
 class TasksController < ApplicationController
   def index
-    #NEEDS TO BE CHANGED TO WORK WITH TASK_TYPE INSTEAD OF NAME!
-    tasktypes = Task.map {|t| [t, t.task_type]}
-    @tasks = Task.where 'name != ""'
+    @blank_type = (TaskType.where 'name == ""').last
+    if @blank_type
+      @blank_type_id = @blank_type.id
+    else
+      @blank_type_id = nil
+    end
+    @tasks = Task.where('task_type_id != ?', @blank_type_id)
   end
 
   def show
