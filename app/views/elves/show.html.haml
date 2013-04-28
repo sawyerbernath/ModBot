@@ -4,8 +4,8 @@
   %li
     Tasks:
     %br
-    - @elf.tasks.each do |t|
-      = "#{t.id}: #{t.task_type.name} on #{t.updated_at.strftime("%l:%M%p %B %d, %Y")}"
+    - @elf_links.each do |l|
+      = link_to l[0], l[1]
       %br
   %li
     Created:

@@ -15,7 +15,7 @@
     = @task.updated_at.strftime("%l:%M%p %B %d, %Y")
   %li
     Elf Assigned:
-    = @task.elf.name
+    = link_to "#{@task.elf.name}", elf_path(@task.elf)
   %li
     Passed:
     = @task.passed
@@ -26,4 +26,6 @@
 = link_to 'Edit', edit_task_path(@task)
 %br
 = button_to 'Delete', task_path(@task), :method => :delete, :confirm => 'Are you sure?'
+= link_to "Task type: #{@task.task_type.name}", task_type_path(@task.task_type)
+%br
 = link_to 'Back to task list', tasks_path

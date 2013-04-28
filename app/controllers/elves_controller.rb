@@ -5,6 +5,10 @@ class ElvesController < ApplicationController
 
   def show
     @elf = Elf.find params[:id]
+    @elf_links = @elf.tasks.map do |t|
+      ["#{t.id}: #{t.task_type.name} on #{t.updated_at.strftime("%l:%M%p %B %d, %Y")}",
+       task_path(t.id)]
+    end
   end
 
   def new

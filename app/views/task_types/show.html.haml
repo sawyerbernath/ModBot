@@ -5,6 +5,14 @@
     Batch Size:
     = @task_type.batch_size
 
+%h3 Tasks
+
+%ul
+  - @task_type.tasks.each do |t|
+    %li
+      = link_to "#{t.id}: #{t.task_type.name} on #{t.updated_at.strftime("%l:%M%p %B %d, %Y")}", task_path(t.id)
+      %br
+
 = link_to 'Edit', edit_task_type_path(@task_type)
 %br
 = button_to 'Delete', task_type_path(@task_type), :method => :delete, :confirm => 'Are you sure?'
