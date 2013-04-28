@@ -1,7 +1,4 @@
 ModBot::Application.routes.draw do
-  resources :task_types
-
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -30,19 +27,9 @@ ModBot::Application.routes.draw do
       get 'select_index'
     end
   end
-  root :to => redirect('/tasks')
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  resources :build_reports
+  resources :task_types
+  root :to => redirect('/home')
 
   # Sample resource route with sub-resources:
   #   resources :products do

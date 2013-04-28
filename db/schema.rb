@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130427161536) do
+ActiveRecord::Schema.define(:version => 20130428010138) do
+
+  create_table "build_reports", :force => true do |t|
+    t.string   "title"
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "_passed"
+    t.integer  "_failed"
+    t.float    "_hours"
+    t.integer  "Assemble Drive Halves_passed"
+    t.integer  "Assemble Drive Halves_failed"
+    t.float    "Assemble Drive Halves_hours"
+    t.integer  "Mate Cubes_passed"
+    t.integer  "Mate Cubes_failed"
+    t.float    "Mate Cubes_hours"
+    t.integer  "Test Passives_passed"
+    t.integer  "Test Passives_failed"
+    t.float    "Test Passives_hours"
+    t.integer  "Circuit Boarding_passed"
+    t.integer  "Circuit Boarding_failed"
+    t.float    "Circuit Boarding_hours"
+  end
 
   create_table "elves", :force => true do |t|
     t.string   "name"
