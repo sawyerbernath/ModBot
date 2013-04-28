@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130427161536) do
+ActiveRecord::Schema.define(:version => 20130428232920) do
 
   create_table "elves", :force => true do |t|
     t.string   "name"
@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(:version => 20130427161536) do
   create_table "task_types", :force => true do |t|
     t.string   "name"
     t.integer  "batch_size"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "test",       :default => false
+    t.boolean  "final",      :default => false
   end
 
   create_table "tasks", :force => true do |t|

@@ -7,9 +7,11 @@
 #  batch_size :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  test       :bool
+#  final      :bool
 #
 
 class TaskType < ActiveRecord::Base
-  attr_accessible :name, :batch_size
+  attr_protected :id, :created_at, :updated_at
   has_many :tasks
 end
