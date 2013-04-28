@@ -6,23 +6,20 @@
 #  title                        :string(255)
 #  start                        :datetime
 #  end                          :datetime
-#  _passed                      :integer
-#  _failed                      :integer
-#  _hours                       :float
-#  Assemble Drive Halves_passed :integer
-#  Assemble Drive Halves_failed :integer
-#  Assemble Drive Halves_hours  :float
-#  Mate Cubes_passed            :integer
-#  Mate Cubes_failed            :integer
-#  Mate Cubes_hours             :float
-#  Test Passives_passed         :integer
-#  Test Passives_failed         :integer
-#  Test Passives_hours          :float
-#  Circuit Boarding_passed      :integer
-#  Circuit Boarding_failed      :integer
-#  Circuit Boarding_hours       :float
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
+#  assemble_drive_halves_passed :integer
+#  assemble_drive_halves_failed :integer
+#  assemble_drive_halves_hours  :float
+#  mate_cubes_passed            :integer
+#  mate_cubes_failed            :integer
+#  mate_cubes_hours             :float
+#  test_passives_passed         :integer
+#  test_passives_failed         :integer
+#  test_passives_hours          :float
+#  circuit_boarding_passed      :integer
+#  circuit_boarding_failed      :integer
+#  circuit_boarding_hours       :float
 #
 
 require 'test_helper'

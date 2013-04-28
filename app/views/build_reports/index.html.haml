@@ -7,18 +7,16 @@
       %th Title
       %th Start
       %th End
-      %th Time Created
       %th Altered?
       %th More Info
   %tbody
     - @reports.each do |r|
       %tr
-        %td= e.id
-        %td= e.title
-        %td= e.start
-        %td= e.end 
-        %td= e.created_at.strftime("%l:%M%p %B %d, %Y")
-        %td= 'Broken'
+        %td= r.id
+        %td= r.title
+        %td= r.start.strftime("%l:%M%p %B %d, %Y")
+        %td= r.end.strftime("%l:%M%p %B %d, %Y")
+        %td= '[Non-functional]'
         %td= link_to "More about #{r.title}", build_report_path(r)
 %br
 = link_to 'Request new build report', new_build_report_path

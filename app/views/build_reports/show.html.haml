@@ -13,5 +13,10 @@
   %li
     Updated:
     = @report.updated_at.strftime("%l:%M%p %B %d, %Y")
+  - @types.each do |t|
+    %li
+      %h3= "#{t.name}"
+      %ul
+        = @report.(Assemble Drive Halves_passed)
 %br
 = link_to 'Back to build report list', build_reports_path

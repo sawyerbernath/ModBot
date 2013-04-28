@@ -5,6 +5,7 @@ class BuildReportsController < ApplicationController
 
   def show
     @report = BuildReport.find params[:id]
+    @types = TaskType.all
   end
 
   def new
@@ -13,6 +14,9 @@ class BuildReportsController < ApplicationController
   end
 
   def create
+    @report = BuildReport.create! params[:build_report]
+    flash[:notice] = "Build report #{@report.title} was successfully created."
+    redirect_to build_reports_path
   end
 
   #no destroy method? Build reports should be kept permanently. I can use
