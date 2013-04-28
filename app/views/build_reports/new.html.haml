@@ -1,0 +1,15 @@
+%h2 Request New Build Report
+
+= form_tag build_reports_path, :method => :post do
+
+  = label :build_report, :title, 'Title'
+  = text_field :build_report, :title
+
+  = label :build_report, :start, 'Start'
+  = datetime_select :build_report, :start
+ 
+  = label :build_report, :end, 'End'
+  = datetime_select :build_report, :end
+  %br
+  %br
+  = submit_tag 'Submit'

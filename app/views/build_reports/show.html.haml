@@ -1,0 +1,17 @@
+%h2 #{@report.title}
+
+%ul#details
+  %li
+    Start:
+    = @report.start.strftime("%l:%M%p %B %d, %Y")
+  %li
+    End:
+    = @report.end.strftime("%l:%M%p %B %d, %Y")
+  %li
+    Created:
+    = @report.created_at.strftime("%l:%M%p %B %d, %Y")
+  %li
+    Updated:
+    = @report.updated_at.strftime("%l:%M%p %B %d, %Y")
+%br
+= link_to 'Back to build report list', build_reports_path
