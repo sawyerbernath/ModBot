@@ -8,18 +8,18 @@
 #  end                          :datetime
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
-#  assemble_drive_halves_passed :integer
-#  assemble_drive_halves_failed :integer
-#  assemble_drive_halves_hours  :float
-#  mate_cubes_passed            :integer
-#  mate_cubes_failed            :integer
-#  mate_cubes_hours             :float
-#  test_passives_passed         :integer
-#  test_passives_failed         :integer
-#  test_passives_hours          :float
-#  circuit_boarding_passed      :integer
-#  circuit_boarding_failed      :integer
-#  circuit_boarding_hours       :float
+#  assemble_drive_halves_passed :integer          default(0)
+#  assemble_drive_halves_failed :integer          default(0)
+#  assemble_drive_halves_hours  :float            default(0.0)
+#  mate_cubes_passed            :integer          default(0)
+#  mate_cubes_failed            :integer          default(0)
+#  mate_cubes_hours             :float            default(0.0)
+#  test_passives_passed         :integer          default(0)
+#  test_passives_failed         :integer          default(0)
+#  test_passives_hours          :float            default(0.0)
+#  circuit_boarding_passed      :integer          default(0)
+#  circuit_boarding_failed      :integer          default(0)
+#  circuit_boarding_hours       :float            default(0.0)
 #
 
 require 'test_helper'

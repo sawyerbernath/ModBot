@@ -11,9 +11,9 @@ class AddNewTaskTypesToBuildReports < ActiveRecord::Migration
       if column_exists? :build_reports, "#{b}_passed"
       else
         change_table :build_reports do |t|
-          t.integer "#{b}_passed"
-          t.integer "#{b}_failed"
-          t.float "#{b}_hours"
+          t.integer "#{b}_passed", :default => 0
+          t.integer "#{b}_failed", :default => 0
+          t.float "#{b}_hours", :default => 0
         end
         file.puts b
       end
