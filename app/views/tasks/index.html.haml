@@ -27,12 +27,15 @@
         %td= task.failed
         %td= link_to "More about #{task.task_type.name}", task_path(task)
 %br
-= link_to 'Add new task', new_task_path
+= link_to 'Add New Task', new_task_path
 %br
-= link_to 'Select task (Elf)', select_index_tasks_path
+= link_to 'Select Task', select_index_tasks_path
 %br
-= link_to 'Complete task (Elf)', complete_index_tasks_path
+= link_to 'Complete Task', complete_index_tasks_path
 %br
-= link_to 'Elf index', elves_path
 %br
-= link_to 'Task type index', task_types_path
+= link_to 'Elves', elves_path
+%br
+= link_to 'Task Types', task_types_path
+%br
+= link_to 'Build Reports', build_reports_path

@@ -15,8 +15,9 @@
         %td= t.batch_size
         %td= link_to "More about #{t.name}", task_type_path(t)
 %br
-= link_to 'Add new task type', new_task_type_path
+= link_to 'Add New Task Type', new_task_type_path
 %br
-= link_to 'Task index', tasks_path
 %br
-= link_to 'Elf index', elves_path
+= link_to 'Tasks', tasks_path
+%br
+= link_to 'Elves', elves_path
