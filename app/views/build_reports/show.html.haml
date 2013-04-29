@@ -29,13 +29,14 @@
       %li
         Percent Yield:
         - if p && f
-          = "#{(p.to_f / (p + f).to_f) * 100} %"
+          = "#{((p.to_f / (p + f).to_f) * 100).round(2)} %"
   %br
   %li
     Total Cubes Built:
     = @total_built
   %li
     Total Percent Yield:
+    = "#{((@total_passed / (@total_passed + @total_failed))*100).round(2)} %"
   %li
     Efficiency (Hours logged / Hours paid): 
         

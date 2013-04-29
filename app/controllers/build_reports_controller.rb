@@ -11,7 +11,7 @@ class BuildReportsController < ApplicationController
     @total_built = 0
     @total_passed = 0.0
     @total_failed = 0.0
-    TaskType.all.each do |t|
+    @type_names.each do |t|
       p = @report["#{t}_passed"]
       f = @report["#{t}_failed"]
       if p
@@ -20,7 +20,7 @@ class BuildReportsController < ApplicationController
       if f
         @total_failed = @total_failed + f
       end
-      if t.final
+      if p && TaskType.find_by_name(t.titleize)
         @total_built = @total_built + p
       end
     end

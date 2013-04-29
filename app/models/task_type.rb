@@ -7,8 +7,8 @@
 #  batch_size :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  test       :bool
-#  final      :bool
+#  test       :boolean          default(FALSE)
+#  final      :boolean          default(FALSE)
 #
 
 class TaskType < ActiveRecord::Base
