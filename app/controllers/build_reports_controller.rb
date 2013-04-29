@@ -33,17 +33,16 @@ class BuildReportsController < ApplicationController
 
   def create
     @report = BuildReport.create! params[:build_report]
-    @end = DateTime.new(2014, 4, 29, 6, 53)
-    @start = DateTime.new(params[:build_report]['start(1i)'].to_i, 
-                          params[:build_report]['start(2i)'].to_i,
-                          params[:build_report]['start(3i)'].to_i,
-                          params[:build_report]['start(4i)'].to_i,
-                          params[:build_report]['start(5i)'].to_i)
-    @end = DateTime.new(params[:build_report]['end(1i)'].to_i, 
-                        params[:build_report]['end(2i)'].to_i,
-                        params[:build_report]['end(3i)'].to_i,
-                        params[:build_report]['end(4i)'].to_i,
-                        params[:build_report]['end(5i)'].to_i)
+    @start = Time.zone.local(params[:build_report]['start(1i)'].to_i, 
+                             params[:build_report]['start(2i)'].to_i,
+                             params[:build_report]['start(3i)'].to_i,
+                             params[:build_report]['start(4i)'].to_i,
+                             params[:build_report]['start(5i)'].to_i)
+    @end = Time.zone.local(params[:build_report]['end(1i)'].to_i, 
+                           params[:build_report]['end(2i)'].to_i,
+                           params[:build_report]['end(3i)'].to_i,
+                           params[:build_report]['end(4i)'].to_i,
+                           params[:build_report]['end(5i)'].to_i)
 
     @tasks = Task.select do |t|
       t.status == 'Completed' && t.updated_at > @start && t.updated_at < @end
