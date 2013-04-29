@@ -7,6 +7,12 @@
 
   = label :task_type, :batch_size, 'Batch Size'
   = text_field :task_type, :batch_size
+
+  = label :task_type, :test, 'Tested'
+  = check_box :task_type, :test, {}, :true, :false
+
+  = label :task_type, :final, 'Final Cubelet Test'
+  = check_box :task_type, :final, {}, :true, :false
   %br
   %br
   = submit_tag 'Submit'

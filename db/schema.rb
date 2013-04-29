@@ -11,27 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130428010138) do
-
-  create_table "build_reports", :force => true do |t|
-    t.string   "title"
-    t.datetime "start"
-    t.datetime "end"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.integer  "assemble_drive_halves_passed"
-    t.integer  "assemble_drive_halves_failed"
-    t.float    "assemble_drive_halves_hours"
-    t.integer  "mate_cubes_passed"
-    t.integer  "mate_cubes_failed"
-    t.float    "mate_cubes_hours"
-    t.integer  "test_passives_passed"
-    t.integer  "test_passives_failed"
-    t.float    "test_passives_hours"
-    t.integer  "circuit_boarding_passed"
-    t.integer  "circuit_boarding_failed"
-    t.float    "circuit_boarding_hours"
-  end
+ActiveRecord::Schema.define(:version => 20130428232920) do
 
   create_table "elves", :force => true do |t|
     t.string   "name"
@@ -43,8 +23,10 @@ ActiveRecord::Schema.define(:version => 20130428010138) do
   create_table "task_types", :force => true do |t|
     t.string   "name"
     t.integer  "batch_size"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "test",       :default => false
+    t.boolean  "final",      :default => false
   end
 
   create_table "tasks", :force => true do |t|

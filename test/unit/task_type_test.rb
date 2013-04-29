@@ -7,6 +7,8 @@
 #  batch_size :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  test       :bool
+#  final      :bool
 #
 
 require 'test_helper'

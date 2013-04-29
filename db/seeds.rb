@@ -2,8 +2,8 @@ some_task_types = [
                    {:name => ''},
                    {:name => 'Assemble Drive Halves', :batch_size => 32},
                    {:name => 'Mate Cubes', :batch_size => 64},
-                   {:name => 'Test Passives', :batch_size => 32},
-                   {:name => 'Circuit Boarding', :batch_size => 64}
+                   {:name => 'Test Passives', :batch_size => 32, :test => true, :final => true},
+                   {:name => 'Circuit Boarding', :batch_size => 64, :test => true}
                   ]
 some_task_types.each {|t| TaskType.create! t}
 
