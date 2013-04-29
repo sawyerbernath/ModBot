@@ -13,6 +13,8 @@ ModBot::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   match 'home' => 'tasks#home'
+  match 'admin' => 'tasks#admin'
+  match 'password' => 'tasks#password'
 
   resources :tasks do
     collection do
