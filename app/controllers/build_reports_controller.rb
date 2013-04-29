@@ -5,7 +5,25 @@ class BuildReportsController < ApplicationController
 
   def show
     @report = BuildReport.find params[:id]
-    @types = TaskType.all
+    @type_names = TaskType.where('name != ""').map do |t|
+      t.name.gsub(/ /, '').underscore
+    end
+    @total_built = 0
+    @total_passed = 0.0
+    @total_failed = 0.0
+    TaskType.all.each do |t|
+      p = @report["#{t}_passed"]
+      f = @report["#{t}_failed"]
+      if p
+        @total_passed = @total_passed + p
+      end
+      if f
+        @total_failed = @total_failed + f
+      end
+      if t.final
+        @total_built = @total_built + p
+      end
+    end
   end
 
   def new
