@@ -1,5 +1,16 @@
 %h2= "Completing Task \##{@task.id}: #{@task.task_type.name}"
 %h3 How Many Passed?
 
-- @buttons.each do |key, value|
-  = button_to value[:text], {:controller => :tasks, :action => :complete, :task_id => @task.id, :passed => value[:passed], :failed => value[:failed], :tested => :true}, :method => :put, :confirm => value[:confirmation]
+%table.grid
+  %tr.grid
+    - @buttons.select{|k,v|k<=@task.quantity && k>=(@task.quantity-9)}.each do |key, value|
+      %td.grid= button_to value[:text], {:controller => :tasks, :action => :complete, :task_id => @task.id, :passed => value[:passed], :failed => value[:failed], :tested => :true}, :method => :put, :confirm => value[:confirmation], :class => "button"
+  %tr.grid
+    - @buttons.select{|k,v|k<(@task.quantity-9) && k>=(@task.quantity-19)}.each do |key, value|
+      %td.grid= button_to value[:text], {:controller => :tasks, :action => :complete, :task_id => @task.id, :passed => value[:passed], :failed => value[:failed], :tested => :true}, :method => :put, :confirm => value[:confirmation], :class => "button"
+  %tr.grid
+    - @buttons.select{|k,v|k<(@task.quantity-19) && k>=(@task.quantity-29)}.each do |key, value|
+      %td.grid= button_to value[:text], {:controller => :tasks, :action => :complete, :task_id => @task.id, :passed => value[:passed], :failed => value[:failed], :tested => :true}, :method => :put, :confirm => value[:confirmation], :class => "button"
+  %tr.grid
+    - @buttons.select{|k,v|k<(@task.quantity-29)}.each do |key, value|
+      %td.grid= button_to value[:text], {:controller => :tasks, :action => :complete, :task_id => @task.id, :passed => value[:passed], :failed => value[:failed], :tested => :true}, :method => :put, :confirm => value[:confirmation], :class => "button"
