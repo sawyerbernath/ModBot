@@ -48,10 +48,13 @@ class BuildReportsController < ApplicationController
       t.status == 'Completed' && t.updated_at > @start && t.updated_at < @end
     end
     
+    #add all tested tasks into BuildReport
     @tasks.each do |t|
-      t_name = t.task_type.name.gsub(/ /, '').underscore
-      @report["#{t_name}_passed"] = @report["#{t_name}_passed"] + t.passed
-      @report["#{t_name}_failed"] = @report["#{t_name}_failed"] + t.failed
+      if t.task_type.test
+        t_name = t.task_type.name.gsub(/ /, '').underscore
+        @report["#{t_name}_passed"] = @report["#{t_name}_passed"] + t.passed
+        @report["#{t_name}_failed"] = @report["#{t_name}_failed"] + t.failed
+      end
     end
     @report.save
 
