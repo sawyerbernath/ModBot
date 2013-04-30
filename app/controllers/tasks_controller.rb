@@ -69,15 +69,25 @@ class TasksController < ApplicationController
 
   def complete
     @task = Task.find params[:task_id]
-    @task.update_attributes!(:status => 'Completed')
-    flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
-    redirect_to home_path
+    if @task.task_type.test == false   #Task with no associated test           
+      @task.update_attributes!(:status => 'Completed')
+      flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
+      redirect_to home_path
+    elsif params[:tested]              #Pass/fail numbers input successfully
+      @task.update_attributes!(:status => 'Completed', :passed => params[:passed],
+                              :failed => params[:failed])
+      flash[:notice] = "#{@task.elf.name} completed and tested task \##{@task.id}."
+      redirect_to home_path
+    else
+      render "/passfail.html.haml/"
+    end
   end
 
   def home
     @buttons = Hash.new
     (Elf.where 'name != ""').each do |e|
-      if e.tasks.last.task_type.name == '' || e.tasks.last.status == 'Completed' 
+      if (e.tasks.last.task_type.name == '' ||   #Elf is new
+          e.tasks.last.status == 'Completed')    #Last task was completed.
         text = "#{e.name}. Click to select task."
         path = select_index_elf_path(e)
         method = :get

@@ -1,0 +1,14 @@
+%h2= "Completing Task \##{@task.id}: #{@task.task_type.name}"
+
+= form_tag complete_tasks_path, :method => :put do
+
+  = label_tag :passed, 'Passed'
+  = text_field_tag :passed
+
+  = label_tag :failed, 'Failed'
+  = text_field_tag :failed
+
+  = hidden_field_tag :tested, :true 
+  = hidden_field_tag :task_id, @task.id
+
+  = submit_tag 'Complete'
