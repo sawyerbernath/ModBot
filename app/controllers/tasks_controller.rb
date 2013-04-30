@@ -19,7 +19,7 @@ class TasksController < ApplicationController
 
   def create
     params[:task][:status] = 'Posted'
-    @task = Task.create!(params[:task].slice(:status, :quantity, :notes, :passed, :failed))
+    @task = Task.create!(params[:task].slice(:status, :quantity, :notes))
     @task.elf = (Elf.where 'name = ""').first
     @task.task_type = TaskType.find params[:task][:task_type]
     @task.save
@@ -56,7 +56,9 @@ class TasksController < ApplicationController
   def select
     @task = Task.find params[:id]
     @elf = Elf.find params[:elf]
-    @task.status = 'In Progress'
+    hours = (Time.now - @task.created_at) / 3600
+    @task.update_attributes!(:status => 'In Progress',
+                             :hours_posted => hours)
     @task.elf = @elf
     @task.save
     flash[:notice] = "Task \##{@task.id} was taken."
@@ -69,14 +71,17 @@ class TasksController < ApplicationController
 
   def complete
     @task = Task.find params[:task_id]
+    hours = (Time.now - @task.updated_at) / 3600
     if @task.task_type.test == false   #Task with no associated test           
-      @task.update_attributes!(:status => 'Completed')
+      @task.update_attributes!(:status => 'Completed',
+                               :hours_in_progress => hours)
       flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
       redirect_to home_path
     elsif params[:tested]              #Pass/fail numbers input successfully
       @task.update_attributes!(:status => 'Completed', 
                                :passed => params[:passed],
-                               :failed => params[:failed])
+                               :failed => params[:failed],
+                               :hours_in_progress => hours)
       flash[:notice] = "#{@task.elf.name} completed and tested task \##{@task.id}."
       redirect_to home_path
     else                               #Needs pass/fail numbers

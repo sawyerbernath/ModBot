@@ -11,6 +11,7 @@ class BuildReportsController < ApplicationController
     @total_built = 0
     @total_passed = 0.0
     @total_failed = 0.0
+    @total_hours = 0.0
     @type_names.each do |t|
       p = @report["#{t}_passed"]
       f = @report["#{t}_failed"]
@@ -23,6 +24,7 @@ class BuildReportsController < ApplicationController
       if p && TaskType.find_by_name(t.titleize).final
         @total_built = @total_built + p
       end
+      @total_hours = @total_hours + @report["#{t}_hours"]
     end
   end
 
@@ -48,18 +50,21 @@ class BuildReportsController < ApplicationController
       t.status == 'Completed' && t.updated_at > @start && t.updated_at < @end
     end
     
-    #add all tested tasks into BuildReport
     @tasks.each do |t|
+      #format task names as in :build_report database
+      t_name = t.task_type.name.gsub(/ /, '').underscore
+      #add all tested tasks into BuildReport
       if t.task_type.test
-        t_name = t.task_type.name.gsub(/ /, '').underscore
         @report["#{t_name}_passed"] = @report["#{t_name}_passed"] + t.passed
         @report["#{t_name}_failed"] = @report["#{t_name}_failed"] + t.failed
       end
+      #copy all tasks' hours into BuildReport
+      @report["#{t_name}_hours"] = t.hours_in_progress
     end
     @report.save
 
     flash[:notice] = "Build report #{@report.title} was successfully created."
-    redirect_to build_reports_path
+    redirect_to build_report_path @report
   end
 
   #no destroy method? Build reports should be kept permanently. I can use

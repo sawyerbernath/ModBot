@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130428232920) do
+ActiveRecord::Schema.define(:version => 20130430122314) do
 
   create_table "build_reports", :force => true do |t|
     t.string   "title"
@@ -53,12 +53,14 @@ ActiveRecord::Schema.define(:version => 20130428232920) do
     t.integer  "quantity"
     t.text     "notes"
     t.string   "status"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "elf_id"
     t.integer  "task_type_id"
     t.integer  "passed"
     t.integer  "failed"
+    t.float    "hours_posted"
+    t.float    "hours_in_progress"
   end
 
 end

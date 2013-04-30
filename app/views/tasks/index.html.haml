@@ -12,6 +12,8 @@
       %th Elf
       %th Passed
       %th Failed
+      %th Hours Spent Posted
+      %th Hours Spent In Progress
       %th More Info
   %tbody
     - @tasks.each do |task|
@@ -25,6 +27,8 @@
         %td= task.elf.name
         %td= task.passed
         %td= task.failed
+        %td= task.hours_posted.round(4) unless task.hours_posted.nil?
+        %td= task.hours_in_progress.round(4) unless task.hours_in_progress.nil?
         %td= link_to "More about #{task.task_type.name}", task_path(task)
 %br
 = link_to 'Add New Task', new_task_path

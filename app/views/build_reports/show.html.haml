@@ -30,6 +30,9 @@
         Percent Yield:
         - if p && f
           = "#{((p.to_f / (p + f).to_f) * 100).round(2)} %"
+      %li
+        Total Hours in Progress:
+        = @report["#{t}_hours"].round 4
   %br
   %li
     Total Cubes Built:
@@ -37,6 +40,9 @@
   %li
     Total Percent Yield:
     = "#{((@total_passed / (@total_passed + @total_failed))*100).round(2)} %"
+  %li
+    Total Hours in Progress:
+    = @total_hours.round 4
   %li
     Efficiency (Hours logged / Hours paid): 
         
