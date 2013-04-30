@@ -29,7 +29,11 @@ ModBot::Application.routes.draw do
       get 'select_index'
     end
   end
-  resources :build_reports
+  resources :build_reports do
+    member do
+      post 'export'
+    end
+  end
   resources :task_types
   root :to => redirect('/home')
 

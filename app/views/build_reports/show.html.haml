@@ -46,5 +46,7 @@
   %li
     Efficiency (Hours logged / Hours paid): 
         
+= link_to 'Export to Google Docs', export_build_report_path(@report), :method => :post
+%br
 %br
 = link_to 'Back to build report list', build_reports_path
