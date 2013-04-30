@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   end
 
   def password
-    if params[:password][:pass] == 'password'
+    if params[:password][:pass] == ''
       redirect_to tasks_path
     else
       flash[:warning] = 'Incorrect password.'

@@ -74,11 +74,21 @@ class TasksController < ApplicationController
       flash[:notice] = "#{@task.elf.name} completed task \##{@task.id}."
       redirect_to home_path
     elsif params[:tested]              #Pass/fail numbers input successfully
-      @task.update_attributes!(:status => 'Completed', :passed => params[:passed],
-                              :failed => params[:failed])
+      @task.update_attributes!(:status => 'Completed', 
+                               :passed => params[:passed],
+                               :failed => params[:failed])
       flash[:notice] = "#{@task.elf.name} completed and tested task \##{@task.id}."
       redirect_to home_path
-    else
+    else                               #Needs pass/fail numbers
+      @buttons = Hash.new
+      @task.quantity.downto(1) do |n|
+        text = n
+        confirmation = "So #{@task.quantity - n} failed?"
+        passed = n
+        failed = @task.quantity - n
+        @buttons[n] = {:text => text, :confirmation => confirmation,
+          :passed => passed, :failed => failed}
+      end
       render "/passfail.html.haml/"
     end
   end
