@@ -19,7 +19,7 @@ class TasksController < ApplicationController
 
   def create
     params[:task][:status] = 'Posted'
-    @task = Task.create!(params[:task].slice(:status, :quantity, :notes, :passed, :failed))
+    @task = Task.create!(params[:task].slice(:status, :quantity, :notes))
     @task.elf = (Elf.where 'name = ""').first
     @task.task_type = TaskType.find params[:task][:task_type]
     @task.save
