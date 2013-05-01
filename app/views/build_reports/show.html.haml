@@ -14,29 +14,30 @@
     Updated:
     = @report.updated_at.strftime("%l:%M%p %B %d, %Y")
   - @type_names.each do |t|
-    - p = @report["#{t}_passed"]
-    - f = @report["#{t}_failed"]
     %h4= "#{t.titleize}"
     %ul
       %li
-        Passed:
-        - if p 
-          = p
+        Passed: 
+        = @typelist[t][:p]
       %li
         Failed:
-        - if f 
-          = f
+        = @typelist[t][:f]
       %li
         Percent Yield:
-        - if p && f
-          = "#{((p.to_f / (p + f).to_f) * 100).round(2)} %"
+        = @typelist[t][:pyield]
+      %li
+        Total Hours in Progress:
+        = @typelist[t][:hours].round 4
   %br
   %li
     Total Cubes Built:
-    = @total_built
+    = @typelist[:total_built]
   %li
     Total Percent Yield:
-    = "#{((@total_passed / (@total_passed + @total_failed))*100).round(2)} %"
+    = @typelist[:total_percent_yield]
+  %li
+    Total Hours in Progress:
+    = @typelist[:total_hours].round 4
   %li
     Efficiency (Hours logged / Hours paid): 
         
