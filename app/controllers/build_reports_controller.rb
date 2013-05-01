@@ -61,13 +61,16 @@ class BuildReportsController < ApplicationController
     end
     
     @tasks.each do |t|
+
       #format task names as in :build_report database
       t_name = t.task_type.name.gsub(/ /, '').underscore
+
       #add all tested tasks into BuildReport
       if t.task_type.test
         @report["#{t_name}_passed"] = @report["#{t_name}_passed"] + t.passed
         @report["#{t_name}_failed"] = @report["#{t_name}_failed"] + t.failed
       end
+
       #copy all tasks' hours into BuildReport
       @report["#{t_name}_hours"] = t.hours_in_progress
     end
@@ -77,6 +80,6 @@ class BuildReportsController < ApplicationController
     redirect_to build_report_path @report
   end
 
-  #no destroy method? Build reports should be kept permanently. I can use
-  #rails console to delete my test reports, etc.
+  #No destroy method! Build reports should be kept permanently.
+  #Use rails console to delete my test reports, etc.
 end
