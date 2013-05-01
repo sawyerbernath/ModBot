@@ -1,6 +1,6 @@
 class TaskTypesController < ApplicationController
   def index
-    @task_types = TaskType.all
+    @task_types = TaskType.where('name != ""').all
   end
 
   def new
