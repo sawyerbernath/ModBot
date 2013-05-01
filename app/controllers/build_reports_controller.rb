@@ -5,27 +5,37 @@ class BuildReportsController < ApplicationController
 
   def show
     @report = BuildReport.find params[:id]
+
+    @typelist = { :total_built => 0,
+                  :total_passed => 0.0,
+                  :total_failed => 0.0,
+                  :total_hours => 0.0}
+
     @type_names = TaskType.where('name != ""').map do |t|
       t.name.gsub(/ /, '').underscore
     end
-    @total_built = 0
-    @total_passed = 0.0
-    @total_failed = 0.0
-    @total_hours = 0.0
     @type_names.each do |t|
-      p = @report["#{t}_passed"]
-      f = @report["#{t}_failed"]
+      p = @report["#{t}_passed"] unless @report["#{t}_passed"].nil?
+      f = @report["#{t}_failed"] unless @report["#{t}_passed"].nil?
+      if p && f
+        pyield = "#{((p.to_f / (p + f).to_f) * 100).round(2)} %"
+      else
+        pyield = ''
+      end
+      hours = @report["#{t}_hours"]
+      @typelist[t] = {:p => p, :f => f, :pyield => pyield, :hours => hours}
       if p
-        @total_passed = @total_passed + p
+        @typelist[:total_passed] = @typelist[:total_passed] + p
       end
       if f
-        @total_failed = @total_failed + f
+        @typelist[:total_failed] = @typelist[:total_failed] + f
       end
       if p && TaskType.find_by_name(t.titleize).final
-        @total_built = @total_built + p
+        @typelist[:total_built] = @typelist[:total_built] + p
       end
-      @total_hours = @total_hours + @report["#{t}_hours"]
+      @typelist[:total_hours] = @typelist[:total_hours] + @report["#{t}_hours"]
     end
+    @typelist[:total_percent_yield] = "#{(@typelist[:total_passed] / (@typelist[:total_passed] + @typelist[:total_failed])*100).round(2)} %"
   end
 
   def new
@@ -51,13 +61,16 @@ class BuildReportsController < ApplicationController
     end
     
     @tasks.each do |t|
+
       #format task names as in :build_report database
       t_name = t.task_type.name.gsub(/ /, '').underscore
+
       #add all tested tasks into BuildReport
       if t.task_type.test
         @report["#{t_name}_passed"] = @report["#{t_name}_passed"] + t.passed
         @report["#{t_name}_failed"] = @report["#{t_name}_failed"] + t.failed
       end
+
       #copy all tasks' hours into BuildReport
       @report["#{t_name}_hours"] = t.hours_in_progress
     end
@@ -67,6 +80,6 @@ class BuildReportsController < ApplicationController
     redirect_to build_report_path @report
   end
 
-  #no destroy method? Build reports should be kept permanently. I can use
-  #rails console to delete my test reports, etc.
+  #No destroy method! Build reports should be kept permanently.
+  #Use rails console to delete my test reports, etc.
 end
