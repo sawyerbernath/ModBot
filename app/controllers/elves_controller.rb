@@ -47,4 +47,34 @@ class ElvesController < ApplicationController
     @elf = Elf.find params[:id]
     @ptasks = Task.select {|t| t.status =='Posted'}
   end
+
+  def punch_in
+    @elf = Elf.find params[:id]
+    @username = CLOCK_NAMES[@elf.name].gsub(/ /, '%20')
+    @password = params[:password]
+    response = HTTParty.get("#{API_URL}?operation=100&username=#{@username}&password=#{@password}")
+    r = JSON.parse(response.parsed_response)
+    if r["status"] == 0
+      flash[:notice] = "#{@elf.name} punched in."
+    else
+      flash[:warning] = "Punch in failed. (Incorrect password?)"
+    end
+
+    redirect_to home_path
+  end
+
+  def punch_out
+    @elf = Elf.find params[:id]
+    @username = CLOCK_NAMES[@elf.name].gsub(/ /, '%20')
+    @password = params[:password]
+    response = HTTParty.get("#{API_URL}?operation=101&username=#{@username}&password=#{@password}")
+    r = JSON.parse(response.parsed_response)
+    if r["status"] == 0
+      flash[:notice] = "#{@elf.name} punched out."
+    else
+      flash[:warning] = "Punch out failed. (Incorrect password?)"
+    end
+
+    redirect_to home_path
+   end
 end

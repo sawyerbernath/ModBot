@@ -27,6 +27,8 @@ ModBot::Application.routes.draw do
   resources :elves do
     member do
       get 'select_index'
+      post 'punch_in'
+      post 'punch_out'
     end
   end
   resources :build_reports

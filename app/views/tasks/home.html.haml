@@ -1,7 +1,10 @@
 %h2 Assembly
 
-- @buttons.each do |key, value|
-  = button_to value[:text], value[:path], :method => value[:method], :confirm => value[:confirmation]
+%table
+  - @buttons.each do |key, value|
+    %tr
+      %td= button_to value[:t][:text], value[:t][:path], :method => value[:t][:method], :confirm => value[:t][:confirmation]
+      %td= button_to value[:c][:text], value[:c][:path], :method => value[:c][:method], :confirm => value[:c][:confirmation]
 %br
 %br
 = link_to 'admin', '/admin'

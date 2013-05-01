@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   def admin
   end
 
-  def password
+  def pass
     if params[:password][:pass] == ''
       redirect_to tasks_path
     else
@@ -14,15 +14,18 @@ class ApplicationController < ActionController::Base
   end
 
   API_URL = "http://10.1.10.78/timeclock/timeclock_api.php"
-  def punch_in (username, password)
-    response = HTTParty.get("#{API_URL}?operation=100&username=#{username}&password=#{password}")
-    #check for failure?
-  end
 
-   def punch_out (username, password)
-    response = HTTParty.get("#{API_URL}?operation=101&username=#{username}&password=#{password}")
-     #check for failure?
-  end
+  #Translates Elf.names to the ModBot TimeClock's identifiers
+  CLOCK_NAMES = {"Sawyer Bernath" => "Sawyer Bernath",
+    "Kristin Yen" => "Kristin Yen",
+    "Chris Borke" => "christopherborke",
+    "Keegan Ridgley" => "Keegan Ridgley",
+    "Karl Stokely" => "KStokley",
+    "Ying Her" => "yingher",
+    "Logan Priess" => "Logan Priess",
+    "Joe Ferry" => "Michaelferry",
+    "Jenny Chambers" => "JChambers",
+    "Michael Kramer" => "Michael Kramer"}
 
    def fetch_elves
      response =  HTTParty.get("#{API_URL}?operation=102")

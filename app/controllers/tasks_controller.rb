@@ -100,6 +100,7 @@ class TasksController < ApplicationController
 
   def home
     @buttons = Hash.new
+    @clock = fetch_elves
     (Elf.where 'name != ""').each do |e|
       if (e.tasks.last.task_type.name == '' ||   #Elf is new
           e.tasks.last.status == 'Completed')    #Last task was completed.
@@ -107,14 +108,29 @@ class TasksController < ApplicationController
         path = select_index_elf_path(e)
         method = :get
         confirmation = false
+
       else
-        text = "#{e.name}. Current task: #{e.tasks.last.id}, #{e.tasks.last.task_type.name}.  CLICK TO COMPLETE TASK." 
-        params[:task_id] = e.tasks.last.id
-        path = complete_tasks_path(params.slice(:task_id))
+        text = "#{e.name}. Current task: #{e.tasks.last.id}, " +
+          "#{e.tasks.last.task_type.name}.  CLICK TO COMPLETE TASK."
+        path = complete_tasks_path(:task_id => e.tasks.last.id)
         method = :put
-        confirmation = "About to complete Task \##{e.tasks.last.id}: #{e.tasks.last.task_type.name}."
+        confirmation = "About to complete Task \##{e.tasks.last.id}: " +
+          "#{e.tasks.last.task_type.name}."
       end
-      @buttons[e.id] = {:text => text, :path => path, :method => method, :confirmation => confirmation}
+
+      if @clock[CLOCK_NAMES[e.name]]["state"] == "in"
+        ctext = 'Sign out'
+        cpath = punch_out_elf_path(e, :password => '8299')
+      else
+        ctext = 'Sign in'
+        cpath = punch_in_elf_path(e, :password => '8299')
+      end
+
+      @buttons[e.id] = {
+        :t => {:text => text, :path => path, 
+          :method => method, :confirmation => confirmation},
+        :c => {:text => ctext, :path => cpath,
+          :method => :post}}
     end
   end
 end
