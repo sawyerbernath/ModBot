@@ -6,6 +6,5 @@
       %td= button_to value[:t][:text], value[:t][:path], :method => value[:t][:method], :confirm => value[:t][:confirmation]
       %td= button_to value[:c][:text], value[:c][:path], :method => value[:c][:method], :confirm => value[:c][:confirmation], :class => 'punch_in'
 %br
-= link_to 'test', home_path
 %br
-= link_to 'admin', tasks_path
+= link_to 'admin', tasks_path, :class => "password"

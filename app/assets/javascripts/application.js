@@ -13,30 +13,3 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-$(document).ready(function() {
-    $('.password').click(function(event){
-	if(prompt('Password?') == '') {}
-	else {
-	    alert('Wrong password!');
-	    event.preventDefault(); // Prevent link from following its href
-	}
-    });
-
-    $(".punch_in").click(function (event) {
-	$password = prompt('Password?');
-	$username = $(this).attr('username');
-	
-	//Need to check for success!
-	event.preventDefault();
-	punch_in($username, $password);
-    });
-    
-    $('.punch_out').click(function (event) {
-	$username = $(this).attr('username');
-	$password = prompt('Password?');
-	
-	//Need to check for success!
-	event.preventDefault();
-	punch_out($username, $password);
-    });
-});
