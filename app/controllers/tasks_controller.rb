@@ -120,17 +120,19 @@ class TasksController < ApplicationController
 
       if @clock[CLOCK_NAMES[e.name]]["state"] == "in"
         ctext = 'Sign out'
-        cpath = punch_out_elf_path(e, :password => '8299')
+        cpath = punch_out_elf_path(e, :username => CLOCK_NAMES[e.name])
+        cclass = :punch_out
       else
         ctext = 'Sign in'
-        cpath = punch_in_elf_path(e, :password => '8299')
+        cpath = punch_in_elf_path(e, :username => CLOCK_NAMES[e.name])
+        cclass = :punch_in
       end
 
       @buttons[e.id] = {
         :t => {:text => text, :path => path, 
           :method => method, :confirmation => confirmation},
         :c => {:text => ctext, :path => cpath,
-          :method => :post}}
+          :method => :post, :class => cclass}}
     end
   end
 end
