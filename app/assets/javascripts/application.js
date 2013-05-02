@@ -13,3 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(document).ready(function() {
+  $('.password').click(function (event) {
+      if(prompt('Password?') == '') {}
+      else {
+	  alert('Wrong password!');
+	  event.preventDefault(); // Prevent link from following its href
+      }
+  });
+});

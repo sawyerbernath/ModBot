@@ -1,10 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  def admin
-  end
-
-  def pass
+  def password
     if params[:password][:pass] == ''
       redirect_to tasks_path
     else
